@@ -81,7 +81,7 @@ export default function Home() {
               </p>
             ))}
             <StatPair
-              items={[`YEARS: ${profile.experience}`, `PROJECTS: ${projects.length}`, 'FOCUS: UI · A11Y · PERF']}
+              items={[`YEARS: ${profile.experience}`, `PROJECTS: 50+`, 'FOCUS: UI · A11Y · PERF']}
               className="mt-4"
             />
           </Reveal>
