@@ -1,6 +1,5 @@
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { profile } from '../data/profile'
-import { projects } from '../data/projects'
 import { Header } from './Chrome'
 import { easeCurtain, easeGallery, SplitWords, useParallax } from './motion'
 import { Pill, StatPair } from './ui'
