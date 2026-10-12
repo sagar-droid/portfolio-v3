@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* =========================================================
+   Structured — Renaissance gallery on putty paper
+   ========================================================= */
+@theme {
+  /* Colors → bg-putty, text-ink, border-vellum, … */
+  --color-putty: #c4c3b6;
+  --color-ink: #000000;
+  --color-bone: #e7e5e4;
+  --color-chalk: #ebebeb;
+  --color-vellum: #dfdcd5;
+  --color-graphite: #595855;
+  --color-ash: #808080;
+  --color-paper: #ffffff;
+
+  /* Fonts → font-serif (Davinci stand-in), font-sans (Helvetica Now stand-in) */
+  --font-serif: "Playfair Display", "Canela", "Tiempos Headline", Georgia, serif;
+  --font-sans: "Inter", "Helvetica Now", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Type scale → text-body-sm, text-subheading, … */
+  --text-micro: 9px;
+  --text-body-sm: 15px;
+  --text-body-sm--line-height: 1.5;
+  --text-subheading: 22px;
+  --text-subheading--line-height: 1.33;
+  --text-heading-sm: 26px;
+  --text-heading-sm--line-height: 1.33;
+  --text-heading-lg: clamp(38px, 5vw, 52px);
+  --text-heading-lg--line-height: 1;
+  --text-section: clamp(52px, 8vw, 94px);
+  --text-section--line-height: 0.84;
+  --text-display: max(374px, 40vw);
+  --text-display--line-height: 0.84;
+
+  /* Tracking */
+  --tracking-display: -0.009em;
+  --tracking-label: 0.08em;
+
+  /* Radii → rounded-card, rounded-pill, rounded-link */
+  --radius-link: 2px;
+  --radius-card: 9px;
+  --radius-pill: 28.8px;
+
+  /* Easing */
+  --ease-gallery: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@layer base {
+  body {
+    @apply bg-putty text-ink font-sans antialiased overflow-x-hidden;
+  }
+  em { font-style: italic; font-weight: 400; }
+  ::selection { background: var(--color-ink); color: var(--color-paper); }
+  :focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 4px;
+    border-radius: var(--radius-link);
+  }
+}
+
+/* Small uppercase museum label */
+@utility label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Hexagon outline indicator — stroke = currentColor, fill = --hex-fill */
+@utility hex {
+  display: inline-block;
+  width: 12px;
+  height: 13px;
+  position: relative;
+  background: currentColor;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 1.25px;
+    background: var(--hex-fill, var(--color-putty));
+    clip-path: inherit;
+    transition: opacity 0.25s ease;
+  }
+}
+
+/* Card with 45° corner cuts */
+@utility notched {
+  --notch: 28px;
+  clip-path: polygon(
+    var(--notch) 0, calc(100% - var(--notch)) 0,
+    100% var(--notch), 100% calc(100% - var(--notch)),
+    calc(100% - var(--notch)) 100%, var(--notch) 100%,
+    0 calc(100% - var(--notch)), 0 var(--notch)
+  );
+}
+
+/* Scroll reveal (toggled by <Reveal>) */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.9s ease, transform 0.9s var(--ease-gallery);
+  &.is-visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
