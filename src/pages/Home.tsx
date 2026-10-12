@@ -7,18 +7,18 @@ import { Reveal } from '../components/Reveal'
 import { Painting, Pill, Room, SectionHeader, SectionLabels, StatPair, Vignette, ghostLink } from '../components/ui'
 import { profile } from '../data/profile'
 import { featuredProjects, projects } from '../data/projects'
-import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { useHead } from '../hooks/useHead'
 
 
 export default function Home() {
-  useDocumentTitle(`${profile.name} — ${profile.role}`)
+  useHead('/')
 
   return (
     <>
       <Hero />
 
       {/* ============ PAINTING + INDEX CARD ============ */}
-      <Painting src="/img/landscape.jpg" credit="Thomas Cole, The Oxbow, 1836">
+      <Painting src="/img/landscape.webp" credit="Thomas Cole, The Oxbow, 1836">
         <IndexCard />
       </Painting>
 
@@ -126,7 +126,7 @@ export default function Home() {
         </div>
       </Room>
 
-      <Painting src="/img/adam.jpg" credit="Michelangelo, The Creation of Adam, c. 1512" className="min-h-[70vh]" />
+      <Painting src="/img/adam.webp" credit="Michelangelo, The Creation of Adam, c. 1512" className="min-h-[70vh]" />
 
       {/* ============ CONTACT ============ */}
       <Room id="contact" dark className="flex flex-col items-center gap-10 text-center">

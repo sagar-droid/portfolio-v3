@@ -4,15 +4,14 @@ import { SplitWords, useParallax } from '../components/motion'
 import { DraftNotice, Footer, Header } from '../components/Chrome'
 import { Reveal } from '../components/Reveal'
 import { Painting, Pill, Room, SectionHeader, SectionLabels, StatPair, Vignette } from '../components/ui'
-import { profile } from '../data/profile'
 import { getNextProject, getProject, projectNumber } from '../data/projects'
-import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { useHead } from '../hooks/useHead'
 
 export default function ProjectPage() {
   const { slug } = useParams()
   const project = getProject(slug)
   const [plateRef, plateScale] = useParallax<HTMLDivElement>(0.86, 1, ['start end', 'start 0.35'])
-  useDocumentTitle(project ? `${project.title} — ${profile.name}` : profile.name)
+  useHead(`/work/${slug}`)
 
   if (!project) return <Navigate to="/404" replace />
 

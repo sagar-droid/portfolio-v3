@@ -1,14 +1,15 @@
 import { Header } from '../components/Chrome'
 import { Painting, Pill } from '../components/ui'
-import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { useLocation } from 'react-router'
+import { useHead } from '../hooks/useHead'
 
 export default function NotFound() {
-  useDocumentTitle('Not found')
+  useHead(useLocation().pathname)
 
   return (
     <div className="relative">
       <Header />
-      <Painting src="/img/temeraire.jpg" credit="J. M. W. Turner, The Fighting Temeraire, 1839">
+      <Painting src="/img/temeraire.webp" credit="J. M. W. Turner, The Fighting Temeraire, 1839">
         <div className="notched flex w-full max-w-[400px] flex-col items-start gap-6 bg-ink p-8 text-paper">
           <p className="label">404</p>
           <h1 className="font-serif text-heading-lg font-medium tracking-display">

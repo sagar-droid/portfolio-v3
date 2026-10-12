@@ -27,6 +27,8 @@ export function Hero() {
         className="relative z-[1] mt-[max(22vh,120px)] flex flex-col items-center gap-5 px-4 text-center"
       >
         <h1 className="font-serif text-heading-lg font-medium uppercase tracking-[-0.47px]">
+          {/* The visible wordmark is decorative, so the name lives in the h1 for crawlers and screen readers */}
+          <span className="sr-only">{profile.name}, </span>
           <SplitWords text="Frontend *Developer*" onMount delay={0.75} />
         </h1>
         <motion.div {...fadeUp(1.05)}>

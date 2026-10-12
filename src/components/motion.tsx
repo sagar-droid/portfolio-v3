@@ -1,4 +1,4 @@
-import { useRef, type MouseEvent, type ReactNode, type RefObject } from 'react'
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode, type RefObject } from 'react'
 import {
   motion,
   useInView,
@@ -91,9 +91,13 @@ export function IrisImage({ src, alt, className = 'size-60' }: { src: string; al
         // clips at the same radius leave anti-aliased slivers of the background showing
         transition={{ duration: 1.2, ease: easeCurtain }}
       >
+        {/* Not loading="lazy": a clipped ancestor can stop lazy images from ever loading.
+            Low priority keeps them from competing with above-the-fold content instead. */}
         <motion.img
           src={src}
           alt={alt}
+          fetchPriority="low"
+          decoding="async"
           style={{ scale }}
           className="size-full object-cover transition-[filter] duration-700 group-hover:brightness-110"
         />
@@ -155,17 +159,27 @@ export function ScrollMarquee({
 }
 
 /* ---------- Page wrapper: ink curtain wipes on enter and exit ---------- */
+// The entering curtain is skipped on the very first load so the prerendered page is
+// visible immediately (good for LCP and for crawlers); it plays on later navigations.
+let hasNavigated = false
+
 export function PageTransition({ children }: { children: ReactNode }) {
+  const [showEnterCurtain] = useState(() => hasNavigated)
+  useEffect(() => {
+    hasNavigated = true
+  }, [])
+
   return (
-    <motion.div exit={{ opacity: 1 }} transition={{ duration: 0.7 }}>
-      {/* lifts away on enter */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-[70] origin-top bg-ink"
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        transition={{ duration: 0.9, ease: easeCurtain, delay: 0.1 }}
-      />
+    <motion.main exit={{ opacity: 1 }} transition={{ duration: 0.7 }}>
+      {showEnterCurtain && (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 z-[70] origin-top bg-ink"
+          initial={{ scaleY: 1 }}
+          animate={{ scaleY: 0 }}
+          transition={{ duration: 0.9, ease: easeCurtain, delay: 0.1 }}
+        />
+      )}
       {/* rises on exit */}
       <motion.div
         aria-hidden="true"
@@ -176,6 +190,6 @@ export function PageTransition({ children }: { children: ReactNode }) {
         transition={{ duration: 0.6, ease: easeCurtain }}
       />
       {children}
-    </motion.div>
+    </motion.main>
   )
 }

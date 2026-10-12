@@ -23,6 +23,24 @@ npm run build    # type-check + production build → dist/
 Each project gets its own page at `/work/<slug>`, with these sections: The Making, My Work, Difficulties and Outcome.
 A project with `draft: true` shows a "draft copy" badge in `npm run dev` only. Set it to `false` once you've reviewed the text.
 
+## SEO & GEO
+
+`npm run build` does three things:
+
+1. Builds the client bundle with Vite.
+2. Prerenders every route to static HTML (`scripts/prerender.mjs`, using `src/entry-server.tsx`). Search engines and AI crawlers that don't run JavaScript still get the full content.
+3. Generates `sitemap.xml`, `robots.txt`, `llms.txt` and `llms-full.txt` from the same data files.
+
+| What | Where |
+|------|-------|
+| Titles, descriptions, Open Graph tags, JSON-LD (Person, ProfilePage, TechArticle, BreadcrumbList) | `src/seo.ts` |
+| Site URL used in canonical links, the sitemap and JSON-LD | `VITE_SITE_URL` env var (default `https://sagar-adhikari-portfolio.vercel.app`) |
+| AI crawler rules | `public/robots.txt` |
+| Social preview images (1200×630) | `public/og/`, regenerate with `npm run og` (macOS, uses `sips`) |
+
+Run `npm run og` after changing a project's title, summary or painting, then commit the PNGs.
+
 ## Deploy
 
-`vercel.json` rewrites every route to `index.html`, so `/work/<slug>` URLs work on Vercel.
+On Vercel, each route is served from its prerendered `index.html`. Unknown URLs get `404.html` with a real 404 status.
+`/assets/*` is cached for one year (the filenames are content-hashed). Images are cached for one week.
