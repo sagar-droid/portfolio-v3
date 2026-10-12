@@ -131,7 +131,7 @@ export default function Home() {
       {/* ============ CONTACT ============ */}
       <Room id="contact" dark className="flex flex-col items-center gap-10 text-center">
         <SectionLabels left="V." right="Contact" />
-        <SectionHeader className="max-w-[12ch]" text="Let's make something *worth* hanging." />
+        <SectionHeader className="max-w-[12ch]" text="Let's make something *worth* showing." />
         <Reveal className="flex flex-col items-center gap-10">
           <p className="max-w-[44ch] text-body-sm text-putty">
             I'm always open to new projects, creative ideas and chances to help bring your vision to life.
