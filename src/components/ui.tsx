@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router'
-import { motion } from 'motion/react'
-import { IrisImage, Magnetic, SplitWords, useParallax } from './motion'
+import { motion, useInView } from 'motion/react'
+import { IrisImage, Magnetic, SplitWords, easeCurtain, useParallax } from './motion'
 
 /* ---------- Pill button (primary CTA) — magnetic, with a sliding fill on hover ---------- */
 type PillProps = {
@@ -140,3 +140,40 @@ export function Painting({
 
 /* ---------- Circular image crop (irises open on scroll) ---------- */
 export const Vignette = IrisImage
+
+/* ---------- Floating quote card with parallax and notched corners ---------- */
+export function QuoteCard({
+  quote,
+  author,
+  role,
+}: {
+  quote: string
+  author: string
+  role?: string
+}) {
+  const [ref, y] = useParallax<HTMLDivElement>('14%', '-14%')
+  const inView = useInView(ref, { once: true, amount: 0.4 })
+
+  return (
+    <motion.div ref={ref} style={{ y }} className="w-full max-w-[640px] px-4">
+      <motion.div
+        initial={{ clipPath: 'inset(40% 0% 40% 0%)' }}
+        animate={{ clipPath: inView ? 'inset(0% 0% 0% 0%)' : 'inset(40% 0% 40% 0%)' }}
+        transition={{ duration: 1.1, ease: easeCurtain }}
+      >
+        <blockquote className="notched relative flex flex-col items-center gap-6 bg-ink/90 p-8 text-center text-paper backdrop-blur-md md:p-12 [--notch:22px] md:[--notch:30px]">
+          <span className="hex" aria-hidden="true" />
+          <p className="font-serif text-[22px] font-normal leading-[1.35] tracking-display italic text-paper md:text-[28px]">
+            “{quote}”
+          </p>
+          <footer className="flex flex-col items-center gap-1">
+            <cite className="font-sans text-xs font-medium uppercase not-italic tracking-[0.1em] text-paper">
+              {author}
+            </cite>
+            {role && <span className="font-sans text-micro tracking-[0.08em] text-putty">{role}</span>}
+          </footer>
+        </blockquote>
+      </motion.div>
+    </motion.div>
+  )
+}

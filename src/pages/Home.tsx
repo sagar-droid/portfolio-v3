@@ -4,7 +4,7 @@ import { Footer } from '../components/Chrome'
 import { Hero, IndexCard } from '../components/Hero'
 import { ScrollMarquee, SplitWords } from '../components/motion'
 import { Reveal } from '../components/Reveal'
-import { Painting, Pill, Room, SectionHeader, SectionLabels, StatPair, Vignette, ghostLink } from '../components/ui'
+import { Painting, Pill, QuoteCard, Room, SectionHeader, SectionLabels, StatPair, Vignette, ghostLink } from '../components/ui'
 import { profile } from '../data/profile'
 import { featuredProjects, projects } from '../data/projects'
 import { useHead } from '../hooks/useHead'
@@ -32,7 +32,7 @@ export default function Home() {
             <Reveal key={p.slug} style={{ transitionDelay: `${i * 140}ms` }}>
               <Link to={`/work/${p.slug}`} className="group flex flex-col items-center gap-5 text-center no-underline">
                 <h3 className="font-serif text-subheading tracking-[-0.11px]">{p.title}</h3>
-                <Vignette src={p.painting.src} alt={p.painting.credit} className="size-[min(240px,70vw)]" />
+                <Vignette src={p.screenshot} alt={`${p.title} screenshot`} className="size-[min(240px,70vw)]" />
                 <span className="hex transition-opacity group-hover:after:opacity-0" aria-hidden="true" />
                 <p className="label">{[p.category, ...p.stack.slice(0, 2)].join(' · ')}</p>
                 <p className="max-w-[30ch] text-body-sm text-putty">{p.summary}</p>
@@ -126,7 +126,16 @@ export default function Home() {
         </div>
       </Room>
 
-      <Painting src="/img/adam.webp" credit="Michelangelo, The Creation of Adam, c. 1512" className="min-h-[70vh]" />
+      <Painting
+        src="/img/wanderer.webp"
+        credit="Caspar David Friedrich, Wanderer above the Sea of Fog, c. 1818"
+        className="min-h-[75vh]"
+      >
+        <QuoteCard
+          quote="Simplicity is the ultimate sophistication."
+          author="Leonardo da Vinci"
+        />
+      </Painting>
 
       {/* ============ CONTACT ============ */}
       <Room id="contact" dark className="flex flex-col items-center gap-10 text-center">

@@ -7,6 +7,8 @@
 
 export type Painting = { src: string; credit: string }
 
+export type Quote = { text: string; author: string; role?: string }
+
 export type Project = {
   slug: string
   title: string
@@ -14,6 +16,7 @@ export type Project = {
   url: string
   screenshot: string
   painting: Painting
+  quote?: Quote
   featured?: boolean
   years?: string
   role: string
@@ -41,6 +44,10 @@ export const projects: Project[] = [
     url: 'https://inventory.ingrails.com/',
     screenshot: '/shots/veda-inventory.webp',
     painting: { src: '/img/milkmaid.webp', credit: 'Johannes Vermeer, The Milkmaid, c. 1658' },
+    quote: {
+      text: 'Make it work, make it right, make it fast.',
+      author: 'Kent Beck',
+    },
     role: 'Frontend Developer · Ingrails',
     stack: ['React', 'React Query', 'REST APIs'],
     summary: 'An enterprise inventory system, part of the Veda product suite.',
@@ -90,6 +97,10 @@ export const projects: Project[] = [
     url: 'https://ingrails.com/login',
     screenshot: '/shots/academics.webp',
     painting: { src: '/img/hare.webp', credit: 'Albrecht Dürer, Young Hare, 1502' },
+    quote: {
+      text: 'First, solve the problem. Then, write the code.',
+      author: 'John Johnson',
+    },
     featured: true,
     role: 'Frontend Developer · Ingrails',
     stack: ['React', 'Lit Components', 'PHP', 'CodeIgniter'],
@@ -140,6 +151,10 @@ export const projects: Project[] = [
     url: 'https://hr.ingrails.com/login',
     screenshot: '/shots/payroll.webp',
     painting: { src: '/img/ambassadors.webp', credit: 'Hans Holbein the Younger, The Ambassadors, 1533' },
+    quote: {
+      text: 'Simplicity is prerequisite for reliability.',
+      author: 'Edsger W. Dijkstra',
+    },
     years: '2025 — 2026',
     role: 'Developer (frontend + backend) · Ingrails',
     stack: ['React', 'React Query', 'Laravel', 'pdf.js', 'pdf-lib', 'Mammoth'],
@@ -196,6 +211,10 @@ export const projects: Project[] = [
     url: 'https://kanooniastra.com/',
     screenshot: '/shots/kanooniastra.webp',
     painting: { src: '/img/pearl.webp', credit: 'Johannes Vermeer, Girl with a Pearl Earring, c. 1665' },
+    quote: {
+      text: 'Design is intelligence made visible.',
+      author: 'Alina Wheeler',
+    },
     featured: true,
     role: 'Frontend Developer',
     stack: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'AOS'],
@@ -245,6 +264,10 @@ export const projects: Project[] = [
     url: 'https://academy.united.edu.np/',
     screenshot: '/shots/united-academy.webp',
     painting: { src: '/img/hunters.webp', credit: 'Pieter Bruegel the Elder, Hunters in the Snow, 1565' },
+    quote: {
+      text: 'Content precedes design. Design in the absence of content is not design, it’s decoration.',
+      author: 'Jeffrey Zeldman',
+    },
     years: '2024 — 2026',
     role: 'Frontend Developer · Ingrails',
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'React Query', 'Zustand', 'Headless CMS'],
@@ -305,7 +328,12 @@ export const projects: Project[] = [
     category: 'Tool',
     url: 'https://excel-json-puce.vercel.app/',
     screenshot: '/shots/excel-json.webp',
-    painting: { src: '/img/wanderer.webp', credit: 'Caspar David Friedrich, Wanderer above the Sea of Fog, c. 1818' },
+    painting: { src: '/img/temeraire.webp', credit: 'J. M. W. Turner, The Fighting Temeraire, 1839' },
+    quote: {
+      text: 'Do one thing and do it well.',
+      author: 'Doug McIlroy',
+      role: 'Unix Philosophy',
+    },
     featured: true,
     role: 'Designer & Developer · Side project',
     stack: ['Next.js', 'Tailwind CSS'],
@@ -354,6 +382,10 @@ export const projects: Project[] = [
     url: 'https://gallery-app-gamma-beryl.vercel.app/',
     screenshot: '/shots/gallery_project.webp',
     painting: { src: '/img/rembrandt.webp', credit: 'Rembrandt van Rijn, Self-Portrait' },
+    quote: {
+      text: 'In photography there is a reality so subtle that it becomes more real than reality.',
+      author: 'Alfred Stieglitz',
+    },
     role: 'Designer & Developer · Side project',
     stack: ['React', 'TypeScript', 'Tailwind CSS'],
     summary: 'A modern photography showcase app.',

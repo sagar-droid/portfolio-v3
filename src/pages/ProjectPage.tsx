@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import { SplitWords, useParallax } from '../components/motion'
 import { DraftNotice, Footer, Header } from '../components/Chrome'
 import { Reveal } from '../components/Reveal'
-import { Painting, Pill, Room, SectionHeader, SectionLabels, StatPair, Vignette } from '../components/ui'
+import { Painting, Pill, QuoteCard, Room, SectionHeader, SectionLabels, StatPair, Vignette } from '../components/ui'
 import { getNextProject, getProject, projectNumber } from '../data/projects'
 import { useHead } from '../hooks/useHead'
 
@@ -28,7 +28,6 @@ export default function ProjectPage() {
         <SectionLabels left={`No. ${no}`} right={project.category} className="top-24" />
 
         <Reveal className="mx-auto flex max-w-[1120px] flex-col items-center gap-7 pt-6 text-center">
-          <Vignette src={project.painting.src} alt={project.painting.credit} className="size-40 md:size-[200px]" />
           <h1 className="font-serif text-section font-medium uppercase tracking-display">
             <SplitWords key={project.slug} text={project.title} onMount delay={0.6} />
           </h1>
@@ -140,7 +139,16 @@ export default function ProjectPage() {
         </div>
       </Room>
 
-      <Painting src={project.painting.src} credit={project.painting.credit} className="min-h-[80vh]" />
+      {/* ============ PAINTING + QUOTE ============ */}
+      <Painting src={project.painting.src} credit={project.painting.credit} className="min-h-[75vh]">
+        {project.quote && (
+          <QuoteCard
+            quote={project.quote.text}
+            author={project.quote.author}
+            role={project.quote.role}
+          />
+        )}
+      </Painting>
 
       {/* ============ IV. OUTCOME ============ */}
       <Room className="text-center">
@@ -161,7 +169,7 @@ export default function ProjectPage() {
           className="group mx-auto flex max-w-[1120px] flex-col items-center gap-8 text-center no-underline"
         >
           <span className="label text-putty">Next work · No. {projectNumber(next.slug)}</span>
-          <Vignette src={next.painting.src} alt={next.painting.credit} className="size-32 md:size-40" />
+          <Vignette src={next.screenshot} alt={`${next.title} screenshot`} className="size-32 md:size-40" />
           <span className="font-serif text-section font-medium uppercase tracking-display group-hover:italic">
             {next.title}
           </span>
