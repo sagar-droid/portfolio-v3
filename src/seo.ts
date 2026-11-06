@@ -130,7 +130,7 @@ function projectHead(p: Project): Head {
           about: {
             '@type': p.category === 'Website' ? 'WebSite' : 'WebApplication',
             name: p.title,
-            url: p.url,
+            ...(p.url && { url: p.url }),
             ...(p.category !== 'Website' && { applicationCategory: p.category === 'Tool' ? 'DeveloperApplication' : 'BusinessApplication', operatingSystem: 'Web' }),
           },
         },

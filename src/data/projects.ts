@@ -9,12 +9,17 @@ export type Painting = { src: string; credit: string }
 
 export type Quote = { text: string; author: string; role?: string }
 
+export type Shot = { src: string; caption: string }
+
 export type Project = {
   slug: string
   title: string
   category: 'Web App' | 'Website' | 'Tool'
-  url: string
+  /** Live URL. Leave out while the site isn't public: the "Visit" links are hidden. */
+  url?: string
   screenshot: string
+  /** Extra full-size screenshots, shown as Fig. 2, Fig. 3… on the case study */
+  gallery?: Shot[]
   painting: Painting
   quote?: Quote
   featured?: boolean
@@ -37,6 +42,71 @@ export type Project = {
 }
 
 export const projects: Project[] = [
+  {
+    slug: 'excelsior-school',
+    title: 'Excelsior School',
+    category: 'Website',
+    url: 'https://excelsior.edu.np/',
+    screenshot: '/shots/excelsior.webp',
+    gallery: [
+      { src: '/shots/excelsior-about.webp', caption: 'About, introduction and key figures' },
+      { src: '/shots/excelsior-experience.webp', caption: 'The Excelsior experience, with video' },
+    ],
+    painting: { src: '/img/sierra.webp', credit: 'Albert Bierstadt, Among the Sierra Nevada, California, 1868' },
+    quote: {
+      text: 'Animation can explain whatever the mind of man can conceive.',
+      author: 'Walt Disney',
+    },
+    featured: true,
+    years: '2026',
+    role: 'Designer & Developer',
+    stack: ['PHP', 'GSAP', 'ScrollTrigger', 'HTML', 'CSS', 'JavaScript'],
+    summary: 'A school website with a classic, editorial feel and smooth GSAP motion.',
+    overview:
+      'The Excelsior School is a website for a school in Swoyambhu, on the edge of the Kathmandu Valley. A school site has to earn trust from parents first, so I went for a calm, editorial look: serif headlines with gold italic accents, plenty of white space and big Himalayan photography. I built it from scratch in plain PHP, with GSAP for the motion.',
+    process: [
+      {
+        title: 'Plain PHP, shared parts',
+        body: 'Pages are rendered by PHP. The header, navigation, footer and repeated sections are shared partials, so every page stays consistent and there is no framework or build step to maintain.',
+      },
+      {
+        title: 'A classic visual language',
+        body: 'An elegant serif for headlines, a clean sans-serif for body text, and one gold accent used for emphasis and calls to action. Inquire, Apply and Visit are always in the header, because those are the actions parents come for.',
+      },
+      {
+        title: 'Motion with GSAP',
+        body: 'GSAP timelines run the hero slideshow and the headline reveals. ScrollTrigger brings sections and figures in as you scroll. The motion is added on top of pages that already work without it.',
+      },
+    ],
+    contributions: [
+      'Designed and built the whole site, from layout and typography to the PHP templates.',
+      'Built the full-screen hero slideshow with GSAP: crossfading images, animated headlines and a 01–03 progress indicator.',
+      'Added scroll-triggered reveals and count-up statistics (students, districts, scholarships, placements) with ScrollTrigger.',
+      'Built the experience section with an inline video player and a full-screen menu.',
+      'Made every page responsive, from phones to wide desktop screens.',
+    ],
+    challenges: [
+      {
+        title: 'Heavy photography, fast first paint',
+        problem: 'The design relies on large, full-bleed photos. Unoptimised, they made the first load slow, especially the hero.',
+        solution: 'Images are compressed and sized for their slot, the first hero slide loads straight away, and the other slides and below-the-fold images load lazily.',
+      },
+      {
+        title: 'Smooth animation on every device',
+        problem: 'A slideshow, scroll reveals and counters all running together can stutter on lower-end phones.',
+        solution: 'I animate only transform and opacity, run everything through GSAP timelines so nothing fights over the same element, and respect the reduced-motion setting by showing the final state straight away.',
+      },
+      {
+        title: 'Content that works without JavaScript',
+        problem: 'If the animation script fails or is slow to load, hidden content could stay hidden.',
+        solution: 'PHP renders all the content as plain HTML. JavaScript sets up the starting states for animation only when it runs, so the page is always readable.',
+      },
+    ],
+    outcome:
+      'A calm, classic school website with motion that feels considered, built on simple PHP that is easy to host and maintain.',
+    draft: true,
+  },
+
   {
     slug: 'veda-inventory',
     title: 'Veda Inventory',
@@ -334,7 +404,6 @@ export const projects: Project[] = [
       author: 'Doug McIlroy',
       role: 'Unix Philosophy',
     },
-    featured: true,
     role: 'Designer & Developer · Side project',
     stack: ['Next.js', 'Tailwind CSS'],
     summary: 'A developer utility that converts Excel files to JSON in a few seconds.',

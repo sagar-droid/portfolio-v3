@@ -36,7 +36,7 @@ export default function ProjectPage() {
             items={[`ROLE: ${project.role.toUpperCase()}`, ...(project.years ? [`YEARS: ${project.years}`] : [])]}
             className="justify-center"
           />
-          <Pill href={project.url}>Visit live site ↗</Pill>
+          {project.url && <Pill href={project.url}>Visit live site ↗</Pill>}
         </Reveal>
       </section>
 
@@ -53,12 +53,32 @@ export default function ProjectPage() {
             />
             <figcaption className="mt-4 flex flex-col justify-between gap-1 text-xs text-graphite md:flex-row">
               <span>
-                <span className="text-ink">Fig. 1</span> · {project.title}, live site
+                <span className="text-ink">Fig. 1</span> · {project.title}
+                {project.url ? ', live site' : ''}
               </span>
               <span className="label font-normal">{project.stack.join(' · ')}</span>
             </figcaption>
           </figure>
         </motion.div>
+
+        {project.gallery?.map((shot, i) => (
+          <Reveal key={shot.src} className="mx-auto mt-10 max-w-[1120px] md:mt-14">
+            <figure className="rounded-card bg-bone p-3 md:p-6">
+              <img
+                src={shot.src}
+                alt={`${project.title}: ${shot.caption}`}
+                className="w-full rounded-[4px] border border-vellum"
+                width={1600}
+                height={765}
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption className="mt-4 text-xs text-graphite">
+                <span className="text-ink">Fig. {i + 2}</span> · {shot.caption}
+              </figcaption>
+            </figure>
+          </Reveal>
+        ))}
 
         <Reveal className="mx-auto mt-24 grid max-w-[1120px] gap-6 md:grid-cols-[1fr_2fr]">
           <p className="label">Overview</p>
@@ -158,7 +178,7 @@ export default function ProjectPage() {
           <p className="font-serif text-heading-lg font-medium tracking-display">
             <SplitWords key={project.slug} text={project.outcome} />
           </p>
-          <Pill href={project.url}>Visit {project.title} ↗</Pill>
+          {project.url && <Pill href={project.url}>Visit {project.title} ↗</Pill>}
         </Reveal>
       </Room>
 
