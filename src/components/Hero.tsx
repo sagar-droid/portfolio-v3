@@ -81,7 +81,7 @@ export function IndexCard() {
 
   return (
     <motion.div ref={ref} style={{ y }} className="w-full max-w-[400px]">
-      {/* Reveal clip lives on its own layer so it doesn't replace the notched corners */}
+      {/* Reveal clip lives on its own layer so it doesn't fight the card's rounded corners */}
       <motion.div
         initial={{ clipPath: 'inset(50% 0% 50% 0%)' }}
         animate={{ clipPath: inView ? 'inset(0% 0% 0% 0%)' : 'inset(50% 0% 50% 0%)' }}
@@ -89,7 +89,7 @@ export function IndexCard() {
       >
         <nav
           aria-label="Index"
-          className="notched relative flex min-h-[340px] flex-col gap-7 bg-ink p-7 text-paper [--notch:20px] md:aspect-square md:p-8 md:[--notch:28px]"
+          className="relative flex min-h-[340px] flex-col gap-7 rounded-[20px] bg-ink p-7 text-paper [corner-shape:squircle] md:aspect-square md:rounded-[28px] md:p-8"
         >
           <p className="label">Index</p>
           <ol className="group/idx flex flex-col gap-2.5">

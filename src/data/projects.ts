@@ -108,6 +108,68 @@ export const projects: Project[] = [
   },
 
   {
+    slug: 'soundcore-player',
+    title: 'Soundcore Player',
+    category: 'Website',
+    url: 'https://soundcore-player.vercel.app/',
+    screenshot: '/shots/soundcore.webp',
+    painting: { src: '/img/adam.webp', credit: 'Michelangelo, The Creation of Adam, c. 1512' },
+    quote: {
+      text: 'Design is not just what it looks like and feels like. Design is how it works.',
+      author: 'Steve Jobs',
+    },
+    years: '2026',
+    role: 'Designer & Developer · Side project',
+    stack: ['Three.js', 'WebGL', 'Web Audio API', 'JavaScript', 'HTML', 'CSS'],
+    summary: 'A concept product page for a hi-res music player, with an interactive Three.js 3D model.',
+    overview:
+      'Soundcore Player is a concept launch page for a high-resolution digital audio player. The star of the page is a 3D model of the player and its earphones that you can rotate, take apart and pick up, built with Three.js. Around it sit a sound demo made with the Web Audio API, a finish picker, tech specs and a store configurator. It is written in plain HTML, CSS and JavaScript, with no framework.',
+    process: [
+      {
+        title: 'A model built in parts',
+        body: 'The player is a single GLB file split into named parts: the aluminium body, the screen glass, the click wheel, the earbuds, the jack and the cable. Because each part can be moved on its own, the page can explode the model, isolate the player or the earphones, and recolour everything when a finish is picked.',
+      },
+      {
+        title: 'Making it look real',
+        body: 'The scene uses physically based materials, a studio environment map generated with PMREM, ACES filmic tone mapping and sRGB output, so the anodised metal and the glass catch the light the way a product photo would.',
+      },
+      {
+        title: 'Sound without audio files',
+        body: 'The “Play demo track” button doesn’t load a recording. It builds a chord from Web Audio oscillators, runs it through filters and a gain stage, and draws a live spectrum from an analyser. Each sound mode reshapes that chain.',
+      },
+    ],
+    contributions: [
+      'Designed and built the whole page in plain HTML, CSS and JavaScript.',
+      'Built the 3D viewer with Three.js: orbit controls with damping, an animated explode view, Player Only and Earphones Only views, and a reset.',
+      'Made every part draggable with raycasting: pull the earbuds or the jack and the cable bends and follows, then everything springs back into place.',
+      'Wrote the cable physics, which bends and ripples the wire mesh in real time, and hotspots that stay pinned to the model and hide when a part is out of view.',
+      'Built the six-finish colour picker, which recolours the player and earphones together.',
+      'Built the sound demo with the Web Audio API: synthesised chord, four sound modes, master gain and a live spectrum visualiser.',
+      'Added the specs, the store configurator with engraving, a cart, and an “View in AR” option using a USDZ file.',
+    ],
+    challenges: [
+      {
+        title: 'A cable that behaves like a cable',
+        problem: 'The earphone wire is the first thing people try to grab. A stiff mesh looked fake the moment anything moved.',
+        solution: 'The wire’s own vertices are moved every frame. The points where it meets the earbuds and the jack follow those parts when you drag them, the rest of the cable bends between them, and fast movements send a ripple down its length. When you let go, an elastic-damper spring eases every part back into place.',
+      },
+      {
+        title: 'Colours that match the swatches',
+        problem: 'The finish swatches are CSS hex colours, but the renderer works in linear space, so the 3D model came out lighter and washed out next to its own swatch.',
+        solution: 'Swatch colours are converted from sRGB to linear before they go into the materials, and the renderer outputs sRGB with filmic tone mapping. The model now matches the swatch you clicked.',
+      },
+      {
+        title: 'Heavy 3D on any device',
+        problem: 'A realistic WebGL scene can drain the battery and drop frames on phones, and it shows nothing if the 3D libraries fail to load.',
+        solution: 'The pixel ratio is capped at 2, textures and render targets are disposed when they are no longer needed, and the animation loop eases values instead of jumping. If Three.js doesn’t load, the page falls back to a 2D canvas so it is never blank.',
+      },
+    ],
+    outcome:
+      'A product page you can play with: pick up the earphones, take the player apart and hear it, all in the browser with no framework.',
+    draft: true,
+  },
+
+  {
     slug: 'veda-inventory',
     title: 'Veda Inventory',
     category: 'Web App',
