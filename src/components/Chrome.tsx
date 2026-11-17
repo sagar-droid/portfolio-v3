@@ -15,7 +15,7 @@ export function Header({ back }: { back?: boolean }) {
       </Link>
       <nav className="flex gap-6">
         {back && (
-          <Link to={{ pathname: '/', hash: '#catalogue' }} className={ghostLink}>
+          <Link to="/work" className={ghostLink}>
             ← All works
           </Link>
         )}

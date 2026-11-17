@@ -9,6 +9,9 @@ import { profile } from '../data/profile'
 import { featuredProjects, projects } from '../data/projects'
 import { useHead } from '../hooks/useHead'
 
+/** The home catalogue shows the newest few; /work lists everything */
+const HOME_CATALOGUE_SIZE = 6
+
 
 export default function Home() {
   useHead('/')
@@ -47,8 +50,13 @@ export default function Home() {
       <Room id="catalogue" dark flush>
         <SectionLabels left="II." right={`Catalogue · ${projects.length} works`} />
         <div className="pt-10">
-          <Catalogue />
+          <Catalogue projects={projects.slice(0, HOME_CATALOGUE_SIZE)} />
         </div>
+        <Reveal className="mt-14 flex justify-center">
+          <Pill to="/work" inverse>
+            View all {projects.length} works →
+          </Pill>
+        </Reveal>
       </Room>
 
       {/* ============ STACK MARQUEE ============ */}

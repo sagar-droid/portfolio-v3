@@ -6,6 +6,7 @@ import { scrollToTarget, startSmoothScroll } from './lib/smoothScroll'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import ProjectPage from './pages/ProjectPage'
+import Work from './pages/Work'
 
 /** On mount (behind the curtain): jump to #hash target, or to the top. */
 function Page({ children }: { children: ReactNode }) {
@@ -47,6 +48,7 @@ export const routes: RouteObject[] = [
     element: <Layout />,
     children: [
       { path: '/', element: <Home /> },
+      { path: '/work', element: <Work /> },
       { path: '/work/:slug', element: <ProjectPage /> },
       { path: '*', element: <NotFound /> },
     ],

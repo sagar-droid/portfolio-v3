@@ -1,14 +1,14 @@
 import { useEffect, useState, type MouseEvent } from 'react'
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform, useVelocity } from 'motion/react'
 import { Link } from 'react-router'
-import { projects, projectNumber } from '../data/projects'
+import { projects as allProjects, projectNumber, type Project } from '../data/projects'
 import { Reveal } from './Reveal'
 
 const PREVIEW_W = 360
 const PREVIEW_H = 202
 
-/** Numbered list of every project. On desktop a screenshot follows the cursor. */
-export function Catalogue() {
+/** Numbered list of projects (all by default). On desktop a screenshot follows the cursor. */
+export function Catalogue({ projects = allProjects }: { projects?: Project[] }) {
   const [active, setActive] = useState<string | null>(null)
 
   // Preview follows the cursor on a spring and tilts with horizontal speed

@@ -139,8 +139,54 @@ function projectHead(p: Project): Head {
           '@type': 'BreadcrumbList',
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-            { '@type': 'ListItem', position: 2, name: 'Work', item: `${SITE_URL}/#catalogue` },
+            { '@type': 'ListItem', position: 2, name: 'Work', item: canonical('/work') },
             { '@type': 'ListItem', position: 3, name: p.title, item: url },
+          ],
+        },
+      ],
+    },
+  }
+}
+
+function workHead(): Head {
+  const url = canonical('/work')
+  return {
+    title: `All Works — ${profile.name}, Frontend Developer`,
+    description: `Every project by ${profile.name}: ${projects.length} web apps, websites and tools, including ${projects
+      .slice(0, 3)
+      .map((p) => p.title)
+      .join(', ')}. Each has a case study on how it was built.`,
+    path: '/work',
+    image: `${SITE_URL}/og/home.png`,
+    imageAlt: `All works by ${profile.name}`,
+    type: 'website',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          '@id': `${url}#page`,
+          url,
+          name: `All works by ${profile.name}`,
+          inLanguage: 'en',
+          author: { '@id': personId },
+          mainEntity: {
+            '@type': 'ItemList',
+            numberOfItems: projects.length,
+            itemListElement: projects.map((p, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              url: canonical(caseStudyPath(p)),
+              name: p.title,
+            })),
+          },
+        },
+        { ...person(), '@id': personId },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+            { '@type': 'ListItem', position: 2, name: 'Work', item: url },
           ],
         },
       ],
@@ -150,6 +196,7 @@ function projectHead(p: Project): Head {
 
 export function getHead(path: string): Head {
   if (path === '/') return homeHead()
+  if (path === '/work') return workHead()
   const match = path.match(/^\/work\/([^/]+)$/)
   const project = match && getProject(match[1])
   if (project) return projectHead(project)
@@ -165,7 +212,7 @@ export function getHead(path: string): Head {
 }
 
 /** All indexable routes (for prerendering + sitemap) */
-export const routePaths = ['/', ...projects.map(caseStudyPath)]
+export const routePaths = ['/', '/work', ...projects.map(caseStudyPath)]
 
 /* ---------- Head tags as data, rendered to HTML (server) or DOM (client) ---------- */
 type Tag = { key: string; tag: 'meta' | 'link'; attrs: Record<string, string> }

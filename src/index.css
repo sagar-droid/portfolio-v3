@@ -30,7 +30,7 @@
   --text-heading-lg--line-height: 1;
   --text-section: clamp(52px, 8vw, 94px);
   --text-section--line-height: 0.84;
-  --text-display: max(374px, 40vw);
+  --text-display: 40vw;
   --text-display--line-height: 0.84;
 
   /* Tracking */
