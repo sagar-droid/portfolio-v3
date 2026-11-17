@@ -30,13 +30,13 @@ export type Project = {
   summary: string
   /** Opening paragraph of the case study */
   overview: string
-  /** I. The Making — how it was built */
+  /** The Making — how it was built */
   process: { title: string; body: string }[]
-  /** II. My Work — what I personally did */
+  /** My Work — what I personally did */
   contributions: string[]
-  /** III. Difficulties — what was hard and how I solved it */
+  /** Difficulties — what was hard and how I solved it */
   challenges: { title: string; problem: string; solution: string }[]
-  /** IV. Outcome */
+  /** Outcome */
   outcome: string
   draft: boolean
 }

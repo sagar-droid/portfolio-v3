@@ -66,11 +66,11 @@ export function Hero() {
 
 /* ---------- Index card that floats against the painting's parallax ---------- */
 const index = [
-  { no: 'I.', label: 'Selected Works', hash: '#works' },
-  { no: 'II.', label: 'Catalogue', hash: '#catalogue' },
-  { no: 'III.', label: 'About', hash: '#about' },
-  { no: 'IV.', label: 'Record', hash: '#record' },
-  { no: 'V.', label: 'Contact', hash: '#contact' },
+  { label: 'Selected Works', hash: '#works' },
+  { label: 'Catalogue', hash: '#catalogue' },
+  { label: 'About', hash: '#about' },
+  { label: 'Record', hash: '#record' },
+  { label: 'Contact', hash: '#contact' },
 ]
 
 export function IndexCard() {
@@ -105,7 +105,6 @@ export function IndexCard() {
                   href={i.hash}
                   className="flex items-baseline gap-4 font-serif text-[28px] leading-[1.1] tracking-display no-underline transition-[opacity,transform] duration-300 ease-gallery hover:translate-x-2 hover:italic md:text-[34px] md:group-hover/idx:opacity-45 md:hover:opacity-100!"
                 >
-                  <span className="min-w-[26px] font-sans text-xs not-italic text-putty">{i.no}</span>
                   {i.label}
                 </a>
               </motion.li>

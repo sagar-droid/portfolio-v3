@@ -27,7 +27,7 @@ export default function Home() {
 
       {/* ============ SELECTED WORKS ============ */}
       <Room id="works" dark>
-        <SectionLabels left="I." right="2023 — 2026" />
+        <SectionLabels right="2023 — 2026" />
         <SectionHeader text="Selected Works" />
 
         <div className="mx-auto mt-24 grid max-w-[1120px] gap-x-7 gap-y-16 md:grid-cols-3">
@@ -48,7 +48,7 @@ export default function Home() {
 
       {/* ============ CATALOGUE ============ */}
       <Room id="catalogue" dark flush>
-        <SectionLabels left="II." right={`Catalogue · ${projects.length} works`} />
+        <SectionLabels right={`Catalogue · ${projects.length} works`} />
         <div className="pt-10">
           <Catalogue projects={projects.slice(0, HOME_CATALOGUE_SIZE)} />
         </div>
@@ -74,7 +74,7 @@ export default function Home() {
 
       {/* ============ ABOUT ============ */}
       <Room id="about">
-        <SectionLabels left="III." right="About" />
+        <SectionLabels right="About" />
         <div className="mx-auto grid max-w-[1120px] items-center gap-14 md:grid-cols-[5fr_7fr]">
           <Reveal className="justify-self-center">
             <Vignette src={profile.portrait} alt={`Portrait of ${profile.name}`} className="size-[min(380px,80vw)]" />
@@ -98,7 +98,7 @@ export default function Home() {
 
       {/* ============ RECORD ============ */}
       <Room id="record" flush>
-        <SectionLabels left="IV." right="Record" />
+        <SectionLabels right="Record" />
         <div className="pt-10">
           <SectionHeader text="Record" />
         </div>
@@ -147,7 +147,7 @@ export default function Home() {
 
       {/* ============ CONTACT ============ */}
       <Room id="contact" dark className="flex flex-col items-center gap-10 text-center">
-        <SectionLabels left="V." right="Contact" />
+        <SectionLabels right="Contact" />
         <SectionHeader className="max-w-[12ch]" text="Let's make something *worth* showing." />
         <Reveal className="flex flex-col items-center gap-10">
           <p className="max-w-[44ch] text-body-sm text-putty">

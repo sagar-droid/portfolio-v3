@@ -86,9 +86,9 @@ export default function ProjectPage() {
         </Reveal>
       </section>
 
-      {/* ============ I. THE MAKING ============ */}
+      {/* ============ THE MAKING ============ */}
       <Room dark>
-        <SectionLabels left="I." right="How it was made" />
+        <SectionLabels right="How it was made" />
         <SectionHeader text="The Making" />
         <ol className="mx-auto mt-24 grid max-w-[1120px] gap-x-7 gap-y-14 md:grid-cols-3">
           {project.process.map((step, i) => (
@@ -106,9 +106,9 @@ export default function ProjectPage() {
         </ol>
       </Room>
 
-      {/* ============ II. MY WORK ============ */}
+      {/* ============ MY WORK ============ */}
       <Room>
-        <SectionLabels left="II." right="What I did" />
+        <SectionLabels right="What I did" />
         <SectionHeader text="My Work" />
         <Reveal className="mx-auto mt-24 max-w-[900px] rounded-card bg-bone p-6 [--hex-fill:var(--color-bone)]">
           <p className="label mb-2">Contributions</p>
@@ -130,9 +130,9 @@ export default function ProjectPage() {
         </Reveal>
       </Room>
 
-      {/* ============ III. DIFFICULTIES ============ */}
+      {/* ============ DIFFICULTIES ============ */}
       <Room dark>
-        <SectionLabels left="III." right="What was hard" />
+        <SectionLabels right="What was hard" />
         <SectionHeader text="Difficulties" />
         <div className="mx-auto mt-24 max-w-[1120px] border-b border-graphite">
           {project.challenges.map((c, i) => (
@@ -170,9 +170,9 @@ export default function ProjectPage() {
         )}
       </Painting>
 
-      {/* ============ IV. OUTCOME ============ */}
+      {/* ============ OUTCOME ============ */}
       <Room className="text-center">
-        <SectionLabels left="IV." right="Outcome" />
+        <SectionLabels right="Outcome" />
         <Reveal className="mx-auto flex max-w-[900px] flex-col items-center gap-10">
           <p className="label">Outcome</p>
           <p className="font-serif text-heading-lg font-medium tracking-display">

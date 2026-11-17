@@ -56,7 +56,7 @@ export function StatPair({ items, className = '' }: { items: string[]; className
 }
 
 /* ---------- Corner labels at the top of a section ---------- */
-export function SectionLabels({ left, right, className = 'top-10' }: { left: string; right: string; className?: string }) {
+export function SectionLabels({ left = '', right, className = 'top-10' }: { left?: string; right: string; className?: string }) {
   return (
     <div className={`label absolute inset-x-4 flex justify-between font-normal md:inset-x-10 ${className}`}>
       <span>{left}</span>
@@ -161,7 +161,7 @@ export function QuoteCard({
         animate={{ clipPath: inView ? 'inset(0% 0% 0% 0%)' : 'inset(40% 0% 40% 0%)' }}
         transition={{ duration: 1.1, ease: easeCurtain }}
       >
-        <blockquote className="notched relative flex flex-col items-center gap-6 bg-ink/90 p-8 text-center text-paper backdrop-blur-md md:p-12 [--notch:22px] md:[--notch:30px]">
+        <blockquote className="rounded-[20px] relative flex flex-col items-center gap-6 bg-ink/90 p-8 text-center text-paper backdrop-blur-md md:p-12 [--notch:22px] md:[--notch:30px]">
           <span className="hex" aria-hidden="true" />
           <p className="font-serif text-[22px] font-normal leading-[1.35] tracking-display italic text-paper md:text-[28px]">
             “{quote}”
