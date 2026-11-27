@@ -108,6 +108,74 @@ export const projects: Project[] = [
   },
 
   {
+    slug: 'ticketing-sewa',
+    title: 'Ticketing Sewa',
+    category: 'Web App',
+    url: 'https://ticketing-sewa.vercel.app/',
+    screenshot: '/shots/ticketing-sewa.webp',
+    gallery: [
+      { src: '/shots/ticketing-sewa-seats.webp', caption: 'Choosing seats on a live map of a cricket ground' },
+      { src: '/shots/ticketing-sewa-dashboard.webp', caption: 'Organizer dashboard with sales for each event' },
+      { src: '/shots/ticketing-sewa-scanner.webp', caption: 'Checking a QR ticket at the gate' },
+    ],
+    painting: { src: '/img/loge.webp', credit: 'Pierre-Auguste Renoir, La Loge (The Theatre Box), 1874' },
+    quote: {
+      text: 'All the world’s a stage.',
+      author: 'William Shakespeare',
+    },
+    years: '2026',
+    role: 'Designer & Full-stack Developer · Side project',
+    stack: ['Next.js', 'React', 'Material UI', 'Node.js', 'Express', 'PostgreSQL', 'Redis', 'BullMQ', 'Zod', 'TypeScript'],
+    summary: 'An online box office where fans pick their exact seat on a live venue map and get a QR ticket in seconds.',
+    overview:
+      'Ticketing Sewa is an online box office for cricket matches, football games, movies and live shows. Fans choose the exact seat they want on a map of the real venue, pay in a few taps and get a QR ticket on their phone. Organizers sell tickets, follow their sales and check people in at the gate, and an administrator approves every organization before it can sell. It is a TypeScript monorepo with a Next.js website, an Express API and a background worker.',
+    process: [
+      {
+        title: 'One contract, three apps',
+        body: 'The website, the API and the worker live in one Turborepo monorepo and share a contracts package of Zod schemas. The same schema validates a request in the browser and on the server, so the two sides never disagree about what a booking or a seat looks like.',
+      },
+      {
+        title: 'Seat maps for real venues',
+        body: 'Each venue type has its own map: a cricket oval with stands all the way around, a football pitch with stands on every side, a cinema with rows facing the screen, and a general stage. Organizers pick one, see the preview straight away and set a price for each section.',
+      },
+      {
+        title: 'Live seats, held seats',
+        body: 'Every seat shows whether it is free, sold or being bought by someone else at that moment. Holds live in Redis with a 10-minute expiry, and every change is published over Redis and pushed to every open map with server-sent events, so nobody picks a seat that is already gone.',
+      },
+    ],
+    contributions: [
+      'Designed and built the whole product: the website, the API, the worker and the deployment.',
+      'Built the interactive seat maps for cricket grounds, football stadiums, cinemas and stages, with zoom and live seat states.',
+      'Built seat holds in Redis, with Lua scripts so a hold can only be released or extended by the person who owns it.',
+      'Streamed seat changes live to every viewer with server-sent events over Redis pub/sub.',
+      'Made checkout safe to retry with idempotency keys and row locks in PostgreSQL, and verified payment webhooks with HMAC signatures.',
+      'Issued QR tickets signed with Ed25519 from a BullMQ worker, and built the gate scanner that accepts each ticket only once.',
+      'Built the organizer dashboard, event creation with a seat-map preview, attendee lists and the admin approval flow.',
+      'Deployed it for free: the website on Vercel, the API and worker on Render, Postgres on Neon.',
+    ],
+    challenges: [
+      {
+        title: 'Two fans, one seat',
+        problem: 'Two people can click the same seat in the same second. If both get through, one of them pays for a seat they don’t have.',
+        solution: 'A seat is claimed with an atomic Redis lock that only one person can win, and the hold carries a token so only its owner can release it. At payment time the seats are locked again in PostgreSQL inside the transaction, so a seat can never be sold twice.',
+      },
+      {
+        title: 'Tickets that can’t be faked',
+        problem: 'A QR code is just text. Anyone could make one that looks real, or show the same ticket twice.',
+        solution: 'Every ticket is signed with an Ed25519 private key, so the scanner can tell a real ticket from a copy without trusting the phone showing it. Each ticket is marked as used the moment it is scanned, and a second scan is turned away.',
+      },
+      {
+        title: 'Seats that never come back',
+        problem: 'People close the tab halfway through checkout. Without clean-up, their seats would stay held and unsold.',
+        solution: 'Holds expire on their own after 10 minutes, and a worker job regularly expires stale orders, releases their seats and tells every open map that the seats are free again.',
+      },
+    ],
+    outcome:
+      'A working box office from seat map to gate: fans book in seconds, organizers see their sales live, and every ticket is checked once at the door.',
+    draft: true,
+  },
+
+  {
     slug: 'soundcore-player',
     title: 'Soundcore Player',
     category: 'Website',
