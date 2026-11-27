@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import { SplitWords, useParallax } from '../components/motion'
 import { DraftNotice, Footer, Header } from '../components/Chrome'
 import { Reveal } from '../components/Reveal'
+import { Slider } from '../components/Slider'
 import { Painting, Pill, QuoteCard, Room, SectionHeader, SectionLabels, StatPair, Vignette } from '../components/ui'
 import { getNextProject, getProject, projectNumber } from '../data/projects'
 import { useHead } from '../hooks/useHead'
@@ -43,42 +44,46 @@ export default function ProjectPage() {
       {/* ============ PLATE: SCREENSHOT ============ */}
       <section className="bg-putty px-4 pb-24 md:px-10 md:pb-[120px]">
         <motion.div ref={plateRef} style={{ scale: plateScale }} className="mx-auto max-w-[1120px] origin-top">
-          <figure className="rounded-card bg-bone p-3 md:p-6">
-            <img
-              src={project.screenshot}
-              alt={`${project.title} screenshot`}
-              className="w-full rounded-[4px] border border-vellum"
-              width={800}
-              height={410}
+          {project.gallery?.length ? (
+            <Slider
+              label={`${project.title} screenshots`}
+              note={project.stack.join(' · ')}
+              slides={[
+                {
+                  src: project.screenshot,
+                  alt: `${project.title} screenshot`,
+                  width: 800,
+                  height: 410,
+                  caption: `${project.title}${project.url ? ', live site' : ''}`,
+                },
+                ...project.gallery.map((shot) => ({
+                  src: shot.src,
+                  alt: `${project.title}: ${shot.caption}`,
+                  width: 1600,
+                  height: 765,
+                  caption: shot.caption,
+                })),
+              ]}
             />
-            <figcaption className="mt-4 flex flex-col justify-between gap-1 text-xs text-graphite md:flex-row">
-              <span>
-                <span className="text-ink">Fig. 1</span> · {project.title}
-                {project.url ? ', live site' : ''}
-              </span>
-              <span className="label font-normal">{project.stack.join(' · ')}</span>
-            </figcaption>
-          </figure>
-        </motion.div>
-
-        {project.gallery?.map((shot, i) => (
-          <Reveal key={shot.src} className="mx-auto mt-10 max-w-[1120px] md:mt-14">
+          ) : (
             <figure className="rounded-card bg-bone p-3 md:p-6">
               <img
-                src={shot.src}
-                alt={`${project.title}: ${shot.caption}`}
+                src={project.screenshot}
+                alt={`${project.title} screenshot`}
                 className="w-full rounded-[4px] border border-vellum"
-                width={1600}
-                height={765}
-                loading="lazy"
-                decoding="async"
+                width={800}
+                height={410}
               />
-              <figcaption className="mt-4 text-xs text-graphite">
-                <span className="text-ink">Fig. {i + 2}</span> · {shot.caption}
+              <figcaption className="mt-4 flex flex-col justify-between gap-1 text-xs text-graphite md:flex-row">
+                <span>
+                  <span className="text-ink">Fig. 1</span> · {project.title}
+                  {project.url ? ', live site' : ''}
+                </span>
+                <span className="label font-normal">{project.stack.join(' · ')}</span>
               </figcaption>
             </figure>
-          </Reveal>
-        ))}
+          )}
+        </motion.div>
 
         <Reveal className="mx-auto mt-24 grid max-w-[1120px] gap-6 md:grid-cols-[1fr_2fr]">
           <p className="label">Overview</p>
